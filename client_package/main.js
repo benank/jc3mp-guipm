@@ -73,23 +73,18 @@ function ReadSettings()
     sound_on = jcmp.settings.Get(sound_on_setting);
 
     
-    jcmp.print(`2notify:${notify_on} 2sound:${sound_on}`);
-
     if (typeof notify_on != 'boolean') 
     {
-        jcmp.print("NOT BOOLEAN 1");
         notify_on = true;
         jcmp.settings.Delete(notify_on_setting);
     }
 
     if (typeof sound_on != 'boolean') 
     {
-        jcmp.print("NOT BOOLEAN 2");
         sound_on = true;
         jcmp.settings.Delete(sound_on_setting);
     }
 
-    jcmp.print(`notify:${notify_on} sound:${sound_on}`);
     jcmp.ui.CallEvent('guipm/SetSettings', notify_on, sound_on);
 
 }
