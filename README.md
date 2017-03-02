@@ -6,6 +6,7 @@ Just drop it in your packages directory, and you're done!
 
 ## Bugs
  - Pressing keys such as `T`, `V`, or `M` while typing in the GUI will activate the chat and respective spawn menus.  [This will be fixed once it can be fixed.](https://gitlab.nanos.io/jc3mp/bugs/issues/274)
+ - Notification/sound toggles do not save. [This will be fixed in the next update.](https://gitlab.nanos.io/jc3mp/bugs/issues/61)
  
 ## Todo
  - Add avatars somewhere.

@@ -28,11 +28,11 @@ jcmp.ui.AddEvent('guipm/SendMessage', (message, id) =>
 })
 
 jcmp.ui.AddEvent('guipm/ToggleOpen', (open) => {
-    ui.hidden = open;
     jcmp.localPlayer.controlsEnabled = open;
 })
 
 jcmp.ui.AddEvent('guipm/Ready', () => {
+    ui.hidden = false;
     jcmp.events.CallRemote('GUIReady');
     ReadSettings();
 })
@@ -72,7 +72,6 @@ function ReadSettings()
     notify_on = jcmp.settings.Get(notify_on_setting);
     sound_on = jcmp.settings.Get(sound_on_setting);
 
-    
     if (typeof notify_on != 'boolean') 
     {
         notify_on = true;

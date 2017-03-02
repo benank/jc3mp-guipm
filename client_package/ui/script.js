@@ -9,6 +9,11 @@ $(document).ready(function()
     let sound_enabled = true;
     let notify_enabled = true;
 
+    if (!open)
+    {
+        $('.window').fadeOut(1, function() {$('.window').css('visibility', 'hidden');});
+    }
+
     function changePlayer(id, name)
     {
         id = id.replace('networkId_', '');
@@ -191,11 +196,6 @@ $(document).ready(function()
         ToggleNotify(!notify_enabled);
     });
 
-    jcmp.AddEvent('guipm/SetSettings', (notify, sound) => {
-        ToggleNotify(notify);
-        ToggleSound(sound);
-    })
-
     
     $(".close-icon").hover(function()
     {
@@ -207,10 +207,11 @@ $(document).ready(function()
 
     $(".close-icon").click(function()
     {
-        jcmp.HideCursor();
-        jcmp.CallEvent('guipm/ToggleOpen', true);
         open = !open;
         $("#close-button").css("color", "white");
+        $('.window').fadeOut("fast", function() {$('.window').css('visibility', 'hidden');});
+        jcmp.HideCursor();
+        jcmp.CallEvent('guipm/ToggleOpen', true);
     });
 
     document.onkeyup = (e) => 
@@ -228,18 +229,21 @@ $(document).ready(function()
         else if (keycode == open_key)
         {
             open = !open;
-            jcmp.CallEvent('guipm/ToggleOpen', !open);
             if (open) 
             {
-                jcmp.ShowCursor(); 
+                $('.window').css('visibility', 'visible');
+                $('.window').fadeIn("fast");
                 $("#input-area").val("");
                 $("#input-area").blur();
+                jcmp.ShowCursor(); 
             } 
             else 
             {
-                jcmp.HideCursor();
+                $('.window').fadeOut("fast", function() {$('.window').css('visibility', 'hidden');});
                 $("#input-area").blur();
+                jcmp.HideCursor();
             }
+            jcmp.CallEvent('guipm/ToggleOpen', !open);
         }
 
     };
@@ -257,6 +261,11 @@ $(document).ready(function()
         RemovePlayer(id);
     })
 
+
+    jcmp.AddEvent('guipm/SetSettings', (notify, sound) => {
+        ToggleNotify(notify);
+        ToggleSound(sound);
+    })
 
     jcmp.CallEvent('guipm/Ready');
 
