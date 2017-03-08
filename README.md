@@ -11,7 +11,5 @@ Just drop it in your packages directory, and you're done!
 ## Todo
  - Add avatars somewhere.
  - Redo leftside visuals, maybe with avatars.
- - Add notification indicator/sound when a message is received and GUI is not open.
- - Add notification icon when GUI is open next to player who sent the message.
  - Sort player list alphabetically.
  - Make selected player a different color in left side.
