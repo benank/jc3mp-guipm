@@ -3,20 +3,26 @@ $(document).ready(function()
     $('.window').draggable({handle: ".title", stack: 'div', disabled: false});
     
     let messages = [];
+    let new_messages = [];
     let current_user = -1;
     const open_key = 119; // F8
     let open = false;
     let sound_enabled = true;
     let notify_enabled = true;
 
+    $('.mail-notify').css('visibility', 'hidden');
+
     if (!open)
     {
         $('.window').fadeOut(1, function() {$('.window').css('visibility', 'hidden');});
     }
 
+    $('html').css('visibility', 'visible');
+
     function changePlayer(id, name)
     {
         id = id.replace('networkId_', '');
+        id = parseInt(id);
         if (typeof messages["networkId_" + id] == 'undefined')
         {
             messages["networkId_" + id] = [];
@@ -34,6 +40,16 @@ $(document).ready(function()
         $("#input-area").attr("placeholder", "Type a message to " + name + "...");
         $("#input-area").val(""); // Clear textbox 
         $("#input-area").focus();
+        // Scroll to bottom
+        let element = document.getElementById("messages");
+        element.scrollTop = element.scrollHeight;
+
+        // Remove new message indicators if there was one
+        if (new_messages.indexOf(id) > -1)
+        {
+            new_messages.splice(new_messages.indexOf(id), 1);
+            $('#newmessage_' + id).remove();
+        }
 
     }
 
@@ -84,6 +100,29 @@ $(document).ready(function()
         {
             CreateMessage(id, entry);
         }
+
+        if (current_user != id && new_messages.indexOf(id) == -1)
+        {
+            new_messages.push(id);
+            CreateSmallIndicator(id);
+        }
+
+        if (!open)
+        {
+            if (sound_enabled)
+            {
+                let sound = document.createElement("AUDIO");
+                sound.setAttribute("src","./sounds/mail.ogg");
+                sound.volume = 0.25;
+                sound.play();
+            }
+        }
+
+        if (!open && notify_enabled)
+        {
+            $('.mail-notify').css('visibility', 'visible');
+        }
+
     }
 
     function CreateMessage(id, entry) // type: to or from, msg: text
@@ -94,6 +133,17 @@ $(document).ready(function()
         $('.message-area').append(message);
         let element = document.getElementById("messages");
         element.scrollTop = element.scrollHeight;
+    }
+
+    function CreateSmallIndicator(id)
+    {
+        let span = document.createElement("span");
+        span.className = "new-messages";
+        span.id = "newmessage_" + id;
+        let icon = document.createElement("span");
+        icon.className = "fa fa-envelope";
+        span.appendChild(icon);
+        $('#networkId_' + id).prepend(span);
     }
     
     $(".mute-icon.notify").hover(function()
@@ -184,6 +234,10 @@ $(document).ready(function()
         notify_enabled = enabled;
         ToggleNotifyIcon(false);
         jcmp.CallEvent('guipm/UpdateSettings', notify_enabled, sound_enabled);
+        if (!notify_enabled)
+        {
+            $('.mail-notify').css('visibility', 'hidden');
+        }
     }
 
     $(".mute-icon.sound").click(function() 
@@ -208,8 +262,7 @@ $(document).ready(function()
     $(".close-icon").click(function()
     {
         open = !open;
-        $("#close-button").css("color", "white");
-        $('.window').fadeOut("fast", function() {$('.window').css('visibility', 'hidden');});
+        $('.window').fadeOut("fast", function() {$('.window').css('visibility', 'hidden'); $("#close-button").css("color", "white");});
         jcmp.HideCursor();
         jcmp.CallEvent('guipm/ToggleOpen', true);
     });
@@ -236,6 +289,12 @@ $(document).ready(function()
                 $("#input-area").val("");
                 $("#input-area").blur();
                 jcmp.ShowCursor(); 
+                $('.mail-notify').css('visibility', 'hidden');
+                if (new_messages.indexOf(current_user) > -1)
+                {
+                    new_messages.splice(new_messages.indexOf(current_user), 1);
+                    $('#newmessage_' + current_user).remove();
+                }
             } 
             else 
             {

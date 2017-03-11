@@ -8,6 +8,11 @@
     color: white;
 }
 
+html
+{
+    visibility: hidden;
+}
+
 
 
 div.window
