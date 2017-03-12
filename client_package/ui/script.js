@@ -160,26 +160,26 @@ $(document).ready(function()
         {
             if (hovered)
             {
-                $("#notify-toggle").removeClass("fa fa-bell");
-                $("#notify-toggle").addClass("fa fa-bell-slash");
+                $("#notify-toggle").removeClass("fa fa-eye");
+                $("#notify-toggle").addClass("fa fa-eye-slash");
             }
             else
             {
-                $("#notify-toggle").removeClass("fa fa-bell-slash");
-                $("#notify-toggle").addClass("fa fa-bell");
+                $("#notify-toggle").removeClass("fa fa-eye-slash");
+                $("#notify-toggle").addClass("fa fa-eye");
             }
         }
         else
         {
             if (hovered)
             {
-                $("#notify-toggle").removeClass("fa fa-bell-slash");
-                $("#notify-toggle").addClass("fa fa-bell");
+                $("#notify-toggle").removeClass("fa fa-eye-slash");
+                $("#notify-toggle").addClass("fa fa-eye");
             }
             else
             {
-                $("#notify-toggle").removeClass("fa fa-bell");
-                $("#notify-toggle").addClass("fa fa-bell-slash");
+                $("#notify-toggle").removeClass("fa fa-eye");
+                $("#notify-toggle").addClass("fa fa-eye-slash");
             }
         }
     }
