@@ -20,6 +20,7 @@ jcmp.events.Add('PlayerDestroyed', (player) => {
 jcmp.events.AddRemoteCallable('SendMessage', (player, message, id) => 
 {
     message = message.trim();
+    message = message.substring(0, (message.length > 1000) ? 1000 : message.length);
     let target = jcmp.players.find(p => p.networkId == id);
     if (typeof target == 'undefined' || target == null || message.length == 0)
     {

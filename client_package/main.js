@@ -24,6 +24,7 @@ jcmp.events.AddRemoteCallable('InitPlayers', (data) => {
 
 jcmp.ui.AddEvent('guipm/SendMessage', (message, id) => 
 {
+    message = message.substring(0, (message.length > 1000) ? 1000 : message.length);
     jcmp.events.CallRemote('SendMessage', message, id);
 })
 
