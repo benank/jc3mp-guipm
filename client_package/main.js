@@ -2,19 +2,19 @@ const ui = new WebUIWindow('guipm', 'package://guipm/ui/index.html', new Vector2
 ui.autoResize = true;
 ui.hidden = true;
 
-jcmp.events.AddRemoteCallable('AddMessage', (id, entry) => {
+jcmp.events.AddRemoteCallable('guipm/AddMessage', (id, entry) => {
     jcmp.ui.CallEvent('guipm/AddMessage', id, entry);
 })
 
-jcmp.events.AddRemoteCallable('AddPlayer', (id, name) => {
+jcmp.events.AddRemoteCallable('guipm/AddPlayer', (id, name) => {
     AddPlayer(id, name);
 })
 
-jcmp.events.AddRemoteCallable('RemovePlayer', (id) => {
+jcmp.events.AddRemoteCallable('guipm/RemovePlayer', (id) => {
     jcmp.ui.CallEvent('guipm/RemovePlayer', id);
 })
 
-jcmp.events.AddRemoteCallable('InitPlayers', (data) => {
+jcmp.events.AddRemoteCallable('guipm/InitPlayers', (data) => {
     data = JSON.parse(data);
     data.forEach(function(entry) 
     {
@@ -25,7 +25,7 @@ jcmp.events.AddRemoteCallable('InitPlayers', (data) => {
 jcmp.ui.AddEvent('guipm/SendMessage', (message, id) => 
 {
     message = message.substring(0, (message.length > 1000) ? 1000 : message.length);
-    jcmp.events.CallRemote('SendMessage', message, id);
+    jcmp.events.CallRemote('guipm/SendMessage', message, id);
 })
 
 jcmp.ui.AddEvent('guipm/ToggleOpen', (open) => {
@@ -34,7 +34,7 @@ jcmp.ui.AddEvent('guipm/ToggleOpen', (open) => {
 
 jcmp.ui.AddEvent('guipm/Ready', () => {
     ui.hidden = false;
-    jcmp.events.CallRemote('GUIReady');
+    jcmp.events.CallRemote('guipm/GUIReady');
     ReadSettings();
 })
 

@@ -1,23 +1,23 @@
 jcmp.events.Add('PlayerReady', (player) => 
 {
-    jcmp.events.CallRemote('AddPlayer', null, player.networkId, player.name);
+    jcmp.events.CallRemote('guipm/AddPlayer', null, player.networkId, player.name);
 })
 
-jcmp.events.AddRemoteCallable('GUIReady', (player) => 
+jcmp.events.AddRemoteCallable('guipm/GUIReady', (player) => 
 {
     let data = [];
     jcmp.players.forEach(function(p) 
     {
         data.push({id: p.networkId, name: p.name});
     });
-    jcmp.events.CallRemote('InitPlayers', player, JSON.stringify(data));
+    jcmp.events.CallRemote('guipm/InitPlayers', player, JSON.stringify(data));
 })
 
 jcmp.events.Add('PlayerDestroyed', (player) => {
-    jcmp.events.CallRemote('RemovePlayer', null, player.networkId);
+    jcmp.events.CallRemote('guipm/RemovePlayer', null, player.networkId);
 })
 
-jcmp.events.AddRemoteCallable('SendMessage', (player, message, id) => 
+jcmp.events.AddRemoteCallable('guipm/SendMessage', (player, message, id) => 
 {
     message = message.trim();
     message = message.substring(0, (message.length > 1000) ? 1000 : message.length);
@@ -29,7 +29,7 @@ jcmp.events.AddRemoteCallable('SendMessage', (player, message, id) =>
 
     if (target != null && typeof target != 'undefined')
     {
-        jcmp.events.CallRemote('AddMessage', target, player.networkId, JSON.stringify({type: "from", msg: message}));
+        jcmp.events.CallRemote('guipm/AddMessage', target, player.networkId, JSON.stringify({type: "from", msg: message}));
     }
-    jcmp.events.CallRemote('AddMessage', player, target.networkId, JSON.stringify({type: "to", msg: message}));
+    jcmp.events.CallRemote('guipm/AddMessage', player, target.networkId, JSON.stringify({type: "to", msg: message}));
 })
