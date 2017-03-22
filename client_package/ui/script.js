@@ -71,6 +71,7 @@ $(document).ready(function()
         {
             changePlayer(this.getAttribute('id'), this.textContent);
         })
+        Sort();
     }
 
     function RemovePlayer(id)
@@ -144,6 +145,16 @@ $(document).ready(function()
         icon.className = "fa fa-envelope";
         span.appendChild(icon);
         $('#networkId_' + id).prepend(span);
+    }
+
+    function Sort()
+    {
+        let $divs = $("div.player-entry");
+        const sorted = $divs.sort(function(a,b)
+        {
+            return ($(a).text() > $(b).text() ? 1 : -1);
+        });
+        $(".players").html(sorted);
     }
     
     $(".mute-icon.notify").hover(function()
