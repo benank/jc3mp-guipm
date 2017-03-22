@@ -11,5 +11,4 @@ Just drop it in your packages directory, and you're done!
 ## Todo
  - Add avatars somewhere.
  - Redo leftside visuals, maybe with avatars.
- - Sort player list alphabetically.
  - Make selected player a different color in left side.
