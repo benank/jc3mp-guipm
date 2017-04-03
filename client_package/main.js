@@ -29,7 +29,11 @@ jcmp.ui.AddEvent('guipm/SendMessage', (message, id) =>
 })
 
 jcmp.ui.AddEvent('guipm/ToggleOpen', (open) => {
-    jcmp.localPlayer.controlsEnabled = open;
+    jcmp.localPlayer.controlsEnabled = !open;
+    if (open)
+    {
+        ui.BringToFront();
+    }
 })
 
 jcmp.ui.AddEvent('guipm/Ready', () => {
@@ -41,10 +45,10 @@ jcmp.ui.AddEvent('guipm/Ready', () => {
 
 function AddPlayer(id, name)
 {
-    if (id != jcmp.localPlayer.networkId)
-    {
+    //if (id != jcmp.localPlayer.networkId)
+    //{
         jcmp.ui.CallEvent('guipm/AddPlayer', id, name);
-    }
+    //}
 }
 
 const notify_on_setting = "guipm/notify_on";

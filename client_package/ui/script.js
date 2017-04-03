@@ -67,12 +67,13 @@ $(document).ready(function()
         player.id = "networkId_" + id;
         player.className = "player-entry";
         $('.players').append(player);
-        $(".player-entry").click(function() 
-        {
-            changePlayer(this.getAttribute('id'), this.textContent);
-        })
         Sort();
     }
+
+    $(document).on("click", ".player-entry",function() 
+    {
+        changePlayer(this.getAttribute('id'), this.textContent);
+    });
 
     function RemovePlayer(id)
     {
@@ -275,7 +276,7 @@ $(document).ready(function()
         open = !open;
         $('.window').fadeOut("fast", function() {$('.window').css('visibility', 'hidden'); $("#close-button").css("color", "white");});
         jcmp.HideCursor();
-        jcmp.CallEvent('guipm/ToggleOpen', true);
+        jcmp.CallEvent('guipm/ToggleOpen', open);
     });
 
     document.onkeyup = (e) => 
@@ -313,7 +314,7 @@ $(document).ready(function()
                 $("#input-area").blur();
                 jcmp.HideCursor();
             }
-            jcmp.CallEvent('guipm/ToggleOpen', !open);
+            jcmp.CallEvent('guipm/ToggleOpen', open);
         }
 
     };
