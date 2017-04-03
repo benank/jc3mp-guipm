@@ -263,3 +263,16 @@ span.new-messages
     50% {opacity: 0;}
     100% {opacity: 1;}
 }
+
+div.m-key
+{
+    font-size: 0.75vw;
+    position: fixed;
+    font-weight: bold;
+    padding: 0.3vw;
+    right: 40%;
+    bottom: 40%;
+    background: #00BFFF;
+    border-radius: 50px;
+    box-shadow: 2px 2px 5px gray;
+}
