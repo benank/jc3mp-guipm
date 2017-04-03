@@ -45,10 +45,10 @@ jcmp.ui.AddEvent('guipm/Ready', () => {
 
 function AddPlayer(id, name)
 {
-    //if (id != jcmp.localPlayer.networkId)
-    //{
+    if (id != jcmp.localPlayer.networkId)
+    {
         jcmp.ui.CallEvent('guipm/AddPlayer', id, name);
-    //}
+    }
 }
 
 const notify_on_setting = "guipm/notify_on";
